@@ -2,6 +2,7 @@ baseURL = 'https://joaomedeiros.dev/'
 languageCode = 'en-us'
 title = 'João Medeiros'
 theme = 'typo'
+enableEmoji = true
 
 [taxonomies]
 tag = 'tags'
@@ -67,10 +68,10 @@ style = 'algol'
 
 # Giscus comments
 [params.giscus]
-enable = false
-repo = "user/repo"
-repoid = "repoId"
-category = "General"
-categoryid = "categoryId"
-mapping = "pathname"
-theme = "preferred_color_scheme"
+enable = true
+repo = "joaomedeiros95/joaomedeiros.dev"
+repoid = "R_kgDOMszgow"
+category = "Announcements"
+categoryid = "DIC_kwDOMszgo84CibMN"
+mapping = "title"
+theme = "transparent_dark"

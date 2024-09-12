@@ -1,0 +1,7 @@
+img[src$='#floatright']
+{
+	float: right;
+    width: 200px;
+    margin-left: 10px;
+    margin-botton: 10px
+}
