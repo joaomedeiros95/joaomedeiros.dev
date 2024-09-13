@@ -75,3 +75,8 @@ category = "Announcements"
 categoryid = "DIC_kwDOMszgo84CibMN"
 mapping = "title"
 theme = "transparent_dark"
+
+[params.umami]
+enable = true
+websiteId = "3785be39-760f-4439-89d1-05ad217e5033"
+jsLocation = "https://cloud.umami.is/script.js"
