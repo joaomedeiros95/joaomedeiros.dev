@@ -1,7 +1,7 @@
 +++
 title = 'Choosing Between WSGI and ASGI in Django: A Hybrid Approach for Optimal Performance'
 date = 2024-09-30
-summary = 'In some Django projects, it could be more beneficial to tackle a mixed environment using WSGI and ASGI. This guide will cover a use case where I had to use both ASGI and WSGI in the same API.'
+summary = 'In some Django projects, tackling a mixed environment using WSGI and ASGI could be more beneficial. This guide will cover a use case where I had to use both ASGI and WSGI in the same API.'
 toc = true
 draft = false
 tags = ["Python", "Django", "API", "WSGI", "ASGI", "Performance", "DRF"]
@@ -122,7 +122,7 @@ stdout_logfile=/dev/stdout
 stdout_logfile_maxbytes=0
 
 [program:gunicorn]
-command=/bin/bash -c "/opt/venv/bin/gunicorn $STATSD_ARGS popai_neo.neo.wsgi:application"
+command=/bin/bash -c "/opt/venv/bin/gunicorn $STATSD_ARGS project.wsgi:application"
 autostart=true
 autorestart=true
 redirect_stderr=true
@@ -130,7 +130,7 @@ stdout_logfile=/dev/stdout
 stdout_logfile_maxbytes=0
 
 [program:daphne]
-command=/opt/venv/bin/daphne -b 0.0.0.0 -p 9000 popai_neo.neo.asgi:application
+command=/opt/venv/bin/daphne -b 0.0.0.0 -p 9000 project.asgi:application
 autostart=true
 autorestart=true
 redirect_stderr=true
