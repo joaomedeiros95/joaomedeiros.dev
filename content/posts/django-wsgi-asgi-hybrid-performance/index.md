@@ -4,7 +4,7 @@ date = 2024-09-30
 summary = 'In some Django projects, it could be more beneficial to tackle a mixed environment using WSGI and ASGI. This guide will cover a use case where I had to use both ASGI and WSGI in the same API.'
 toc = true
 draft = false
-tags = ["Python", "Django", "API", "WSGI", "ASGI", "Performance"]
+tags = ["Python", "Django", "API", "WSGI", "ASGI", "Performance", "DRF"]
 showTags = true
 +++
 
