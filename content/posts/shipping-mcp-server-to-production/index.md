@@ -33,8 +33,6 @@ From there, the client is expected to discover how to authenticate on its own, o
 Each piece is simple when you read it alone. The trouble is that every client implements the discovery flow a little differently, and when something is wrong the user usually sees a generic "failed to connect" message with no details.
 
 ### Plugging into the login we already had
-> **TODO(joao):** verify two claims below: regular Warmly login also goes through WorkOS, and every tool call runs with that user's permissions.
-
 Our customers already log in to Warmly through [WorkOS](https://workos.com), and we did not want a second set of credentials just for MCP. So instead of building our own OAuth server, we made WorkOS the authorization server for MCP clients too. It handles the discovery and client registration steps described above and issues the tokens.
 
 That kept our side small. The MCP server is only a resource server: it points clients to WorkOS in its protected resource metadata and validates the tokens they send. SSO customers using Okta or Google Workspace were already handled by WorkOS, so their MCP login goes through the same flow without any SSO-specific code on our side.
