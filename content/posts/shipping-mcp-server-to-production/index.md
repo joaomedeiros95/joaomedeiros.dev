@@ -81,7 +81,7 @@ A few things that made the tools work well in production:
 
 - **Sensible defaults and hard limits.** `timeWindow` defaults to the past day and caps at a week, and `take` defaults to 25 with a maximum of 500. Without limits, the model will happily ask for everything.
 - **A `preview` flag.** With `preview: true` the tool returns an estimated row count without spending credits, so the model can check the size of a query before running it.
-- **Closed vocabularies have to be in the tool description.** Our signal taxonomy has hundreds of subtypes. Claude will invent plausible signal names that don't exist, so we either document the catalog or tell the model to fall back to the broader `signalCategory` and let the server fan out.
+- **Don't let the model guess names from a large taxonomy.** Our signals are organized into 31 categories, 25 types and around 395 subtypes. When asked for a specific signal, Claude invents names that sound right but don't exist. Our docs give users two ways around it: reference the full catalog, or stay at the broader `signalCategory` level and let the server fan out to all the types and subtypes under it.
 
 ## Rate limiting
 > **TODO(joao):** describe the implementation (where the limiter lives, keyed by user/org/token, storage).
