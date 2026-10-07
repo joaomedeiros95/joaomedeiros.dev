@@ -79,8 +79,10 @@ We launched with a small, read-only set:
 | `list_third_party_signals` | Which companies show a buying signal right now? Or, what signals fired on this domain? |
 | `get_credits_remaining` | How many credits does my workspace still have this month? |
 
+<!-- TODO(joao): verify this internal detail/rationale. -->
 Behind `list_warm_accounts` there is no `accounts` table that maps one to one. It aggregates visitor sessions, identity resolution, company enrichment and CRM presence (HubSpot, Salesforce, Pipedrive) into a single row per company. That aggregation lives on the server, so the model receives one clean answer instead of trying to join three tools by itself.
 
+<!-- TODO(joao): verify this internal detail/rationale. -->
 `list_third_party_signals` has two modes, `by_signal` and `by_company`, because those are the two questions people ask: "who is hiring sales reps?" and "what's going on with acme.com?". One tool with a mode was clearer to the model than two tools with overlapping parameters.
 
 A few things that made the tools work well in production:
