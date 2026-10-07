@@ -9,7 +9,7 @@ showTags = true
 +++
 
 ## Introduction
-Every MCP tutorial I found ends at the same place: a server running on `localhost`, one hardcoded tool, and Claude Desktop happily calling it. That's a great first hour, but it says almost nothing about what happens when real customers, with real data and real SSO policies, connect their agents to your server.
+Most MCP tutorials focus on getting a server running and a first tool working. Very few cover what happens when real customers, with real data and real SSO policies, connect their agents to your server.
 
 At [Warmly](https://www.warmly.ai) I built our [MCP server](https://www.warmly.ai/launches/warmly-mcp-and-api-are-live). We went from zero to production in 10 days, and in the first week more than 50 customers connected it to Claude Desktop, Claude Code, Cursor and other MCP clients. Very few people have run MCP in production with paying customers yet, so I want to write down the parts that surprised me.
 
