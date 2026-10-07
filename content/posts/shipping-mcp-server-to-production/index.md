@@ -33,9 +33,9 @@ From there, the client is expected to discover how to authenticate on its own, o
 Each piece is simple when you read it alone. The trouble is that every client implements the discovery flow a little differently, and when something is wrong the user usually sees a generic "failed to connect" message with no details.
 
 ### Plugging into the login we already had
-> **TODO(joao):** describe the actual architecture — which IdP / auth provider, whether the MCP server is its own authorization server or delegates, how SSO customers (Okta/Google Workspace) were handled.
+> **TODO(joao):** still open: did WorkOS act as the OAuth authorization server for MCP clients (e.g. AuthKit handling discovery and client registration), or did the MCP server issue its own tokens? How were SSO customers (Okta/Google Workspace) handled? Also verify the paragraph below.
 
-Our customers already log in to Warmly, many of them through their company SSO. We did not want a second set of credentials just for MCP, so the OAuth flow had to end in the same login page they already use. After login, the token issued to the MCP client is tied to the user, and every tool call runs with exactly that user's permissions.
+Our customers already log in to Warmly, many of them through their company SSO. We did not want a second set of credentials just for MCP, so the OAuth flow had to end in the same login page they already use. We used [WorkOS](https://workos.com) for authentication. After login, the token issued to the MCP client is tied to the user, and every tool call runs with exactly that user's permissions.
 
 ### Multi-org users
 One detail I didn't expect: some users belong to more than one Warmly organization (agencies, and our own team, for example). A token says *who* you are but not *which workspace* you are asking about. We solved it by letting the client pin the organization either in the URL or in a header:
