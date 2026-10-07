@@ -33,9 +33,13 @@ From there, the client is expected to discover how to authenticate on its own, o
 Each piece is simple when you read it alone. The trouble is that every client implements the discovery flow a little differently, and when something is wrong the user usually sees a generic "failed to connect" message with no details.
 
 ### Plugging into the login we already had
-> **TODO(joao):** still open: did WorkOS act as the OAuth authorization server for MCP clients (e.g. AuthKit handling discovery and client registration), or did the MCP server issue its own tokens? How were SSO customers (Okta/Google Workspace) handled? Also verify the paragraph below.
+> **TODO(joao):** verify two claims below: regular Warmly login also goes through WorkOS, and every tool call runs with that user's permissions.
 
-Our customers already log in to Warmly, many of them through their company SSO. We did not want a second set of credentials just for MCP, so the OAuth flow had to end in the same login page they already use. We used [WorkOS](https://workos.com) for authentication. After login, the token issued to the MCP client is tied to the user, and every tool call runs with exactly that user's permissions.
+Our customers already log in to Warmly through [WorkOS](https://workos.com), and we did not want a second set of credentials just for MCP. So instead of building our own OAuth server, we made WorkOS the authorization server for MCP clients too. It handles the discovery and client registration steps described above and issues the tokens.
+
+That kept our side small. The MCP server is only a resource server: it points clients to WorkOS in its protected resource metadata and validates the tokens they send. SSO customers using Okta or Google Workspace were already handled by WorkOS, so their MCP login goes through the same flow without any SSO-specific code on our side.
+
+After login, the token issued to the MCP client is tied to the user, and every tool call runs with exactly that user's permissions.
 
 ### Multi-org users
 One detail I didn't expect: some users belong to more than one Warmly organization (agencies, and our own team, for example). A token says *who* you are but not *which workspace* you are asking about. We solved it by letting the client pin the organization either in the URL or in a header:
