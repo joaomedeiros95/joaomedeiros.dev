@@ -40,7 +40,9 @@ That kept our side small. The MCP server is only a resource server: it points cl
 After login, the token issued to the MCP client is tied to the user, and every tool call runs with exactly that user's permissions.
 
 ### Multi-org users
-One detail I didn't expect: some users belong to more than one Warmly organization (agencies, and our own team, for example). A token says *who* you are but not *which workspace* you are asking about. We solved it by letting the client pin the organization either in the URL or in a header:
+Some users belong to more than one Warmly organization. A token says *who* you are but not *which workspace* you are asking about.
+
+For users with a single organization, there is nothing to decide: the server picks their organization automatically. For users with more than one, we chose not to guess. Assuming the wrong organization would mean answering with another workspace's data, which is dangerous. Instead, the client pins the organization, either in the URL or in a header:
 
 ```shell
 # Claude Desktop: query parameter
@@ -50,9 +52,9 @@ https://opps-api.getwarmly.com/api/mcp?organization_id=<uuid>
 X-Warmly-Organization-Id: <uuid>
 ```
 
-> **TODO(joao):** verify the paragraph below matches the implementation.
+The server validates that the authenticated user belongs to that organization, so the parameter only selects among the workspaces the user can already access.
 
-The server still validates that the authenticated user belongs to the organization. The parameter only selects among the workspaces the user can already access.
+Pinning also has a nice side effect: users with several organizations can add one MCP server per organization they want to access, each one pinned to its own workspace.
 
 ### Lessons
 > **TODO(joao):** add the concrete bugs you hit (redirect URI mismatches, token refresh, clients caching a broken registration, etc.).
