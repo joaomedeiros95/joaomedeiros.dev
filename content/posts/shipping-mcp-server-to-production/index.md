@@ -73,8 +73,6 @@ We launched with a small, read-only set:
 | `list_third_party_signals` | Which companies show a buying signal right now? Or, what signals fired on this domain? |
 | `get_credits_remaining` | How many credits does my workspace still have this month? |
 
-> **TODO(joao):** verify the internal detail/rationale in the paragraph below.
-
 `list_third_party_signals` has two modes, `by_signal` and `by_company`, because those are the two questions people ask: "who is hiring sales reps?" and "what's going on with acme.com?". One tool with a mode was clearer to the model than two tools with overlapping parameters.
 
 A few things that made the tools work well in production:
