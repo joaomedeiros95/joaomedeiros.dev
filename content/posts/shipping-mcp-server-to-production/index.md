@@ -57,8 +57,6 @@ The server validates that the authenticated user belongs to that organization, s
 Pinning also has a nice side effect: users with several organizations can add one MCP server per organization they want to access, each one pinned to its own workspace.
 
 ### Lessons
-> **TODO(joao):** add the concrete bugs you hit (redirect URI mismatches, token refresh, clients caching a broken registration, etc.).
-
 - Test with every client you plan to support, not only the one you use. They don't behave the same way during discovery and token refresh. Perplexity, for example, didn't log in correctly with our first version, and we had to adjust how the server handles unauthorized requests.
 - Log the whole OAuth handshake on the server side. Most of our login errors were user errors, not bugs: a few customers picked their personal Gmail account instead of the one registered with Warmly. The logs are what let us identify these quickly.
 - Keep tokens short-lived and make refresh work early. A broken refresh shows up as "the MCP stopped working" a day after onboarding.
