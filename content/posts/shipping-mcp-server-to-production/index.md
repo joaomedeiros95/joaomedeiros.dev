@@ -64,7 +64,7 @@ Pinning also has a nice side effect: users with several organizations can add on
 ## Mapping tools to real data
 The temptation when building an MCP server is to expose your API one endpoint per tool. Don't do that. A model is not a frontend developer: it doesn't want twenty small tools to combine, it wants a few tools that answer the questions a user actually asks.
 
-One of the biggest lessons here was to launch with a very small list of tools, instead of a bunch of tools we didn't know people would use. We launched with three read-only tools (`list_warm_visitors`, `list_warm_accounts` and `get_credits_remaining`) and added `list_third_party_signals` after launch. Today the server has these four:
+One of the biggest lessons here was to launch with a very small list of tools, instead of a bunch of tools we didn't know people would use. The server has only four tools, all read-only:
 
 | Tool | Question it answers |
 |------|---------------------|
