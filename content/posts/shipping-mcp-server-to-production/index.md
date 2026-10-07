@@ -82,8 +82,6 @@ A few things that made the tools work well in production:
 - **Don't let the model guess names from a large taxonomy.** Our signals are organized into 31 categories, 25 types and around 395 subtypes. When asked for a specific signal, Claude invents names that sound right but don't exist. To prevent that, the tool description tells Claude which signals are available to use. Our docs also give users two ways around it: reference the full catalog, or stay at the broader `signalCategory` level and let the server fan out to all the types and subtypes under it.
 
 ## Rate limiting
-> **TODO(joao):** describe the implementation (where the limiter lives, keyed by user/org/token, storage).
-
 Agents are much more aggressive than humans. A single prompt like "check all of these 40 domains" turns into 40 tool calls in a few seconds, and an agent running in a loop can do that all day.
 
 The limits are 60 calls per minute on the free tier and 120 on paid plans. Going over returns `HTTP 429`, and it's safe to retry after about 60 seconds.
