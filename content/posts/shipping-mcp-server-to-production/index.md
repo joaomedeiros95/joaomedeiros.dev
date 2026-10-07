@@ -15,17 +15,6 @@ At [Warmly](https://www.warmly.ai) I built our [MCP server](https://www.warmly.a
 
 >TL;DR: Writing tools is the easy part. Authentication took most of the effort, tool design should follow the questions customers ask (not your database tables), rate limits need to be explained to the model and not only to humans, and if you don't tell the AI how to present your data, every response will look different.
 
-## The 10-day timeline
-<!-- TODO(joao): replace with the real day-by-day breakdown. Suggested shape below. -->
-Ten days sounds aggressive, and it was. Here is roughly how the time was split:
-
-- **Days 1–2:** transport, tool scaffolding, and the first tool returning real data.
-- **Days 3–7:** OAuth. Most of the project lived here.
-- **Days 8–9:** rate limiting, credits, and rewriting tool descriptions after watching the model use them.
-- **Day 10:** docs, the one-line install command, and launch.
-
-The ratio is the interesting part: the code that actually answers questions was a small fraction of the work.
-
 ## Auth was the hard part
 ### Why it's harder than a normal API
 For our REST API, authentication is boring: the customer creates an API key and sends it as a bearer token. MCP clients don't work like that. A user adds a URL to Claude Desktop or runs a single command:
@@ -44,7 +33,8 @@ From there, the client is expected to discover how to authenticate on its own, o
 Each piece is simple when you read it alone. The trouble is that every client implements the discovery flow a little differently, and when something is wrong the user usually sees a generic "failed to connect" message with no details.
 
 ### Plugging into the login we already had
-<!-- TODO(joao): describe the actual architecture — which IdP / auth provider, whether the MCP server is its own authorization server or delegates, how SSO customers (Okta/Google Workspace) were handled. -->
+> **TODO(joao):** describe the actual architecture — which IdP / auth provider, whether the MCP server is its own authorization server or delegates, how SSO customers (Okta/Google Workspace) were handled.
+
 Our customers already log in to Warmly, many of them through their company SSO. We did not want a second set of credentials just for MCP, so the OAuth flow had to end in the same login page they already use. After login, the token issued to the MCP client is tied to the user, and every tool call runs with exactly that user's permissions.
 
 ### Multi-org users
@@ -58,11 +48,13 @@ https://opps-api.getwarmly.com/api/mcp?organization_id=<uuid>
 X-Warmly-Organization-Id: <uuid>
 ```
 
-<!-- TODO(joao): verify this matches the implementation. -->
+> **TODO(joao):** verify the paragraph below matches the implementation.
+
 The server still validates that the authenticated user belongs to the organization. The parameter only selects among the workspaces the user can already access.
 
 ### Lessons
-<!-- TODO(joao): add the concrete bugs you hit (redirect URI mismatches, token refresh, clients caching a broken registration, etc.). -->
+> **TODO(joao):** add the concrete bugs you hit (redirect URI mismatches, token refresh, clients caching a broken registration, etc.).
+
 - Test with every client you plan to support, not only the one you use. They don't behave the same way during discovery and token refresh.
 - Log the whole OAuth handshake on the server side. The client will rarely tell the user what went wrong, so your logs are the only source of truth.
 - Keep tokens short-lived and make refresh work early. A broken refresh shows up as "the MCP stopped working" a day after onboarding.
@@ -79,10 +71,12 @@ We launched with a small, read-only set:
 | `list_third_party_signals` | Which companies show a buying signal right now? Or, what signals fired on this domain? |
 | `get_credits_remaining` | How many credits does my workspace still have this month? |
 
-<!-- TODO(joao): verify this internal detail/rationale. -->
+> **TODO(joao):** verify the internal detail/rationale in the paragraph below.
+
 Behind `list_warm_accounts` there is no `accounts` table that maps one to one. It aggregates visitor sessions, identity resolution, company enrichment and CRM presence (HubSpot, Salesforce, Pipedrive) into a single row per company. That aggregation lives on the server, so the model receives one clean answer instead of trying to join three tools by itself.
 
-<!-- TODO(joao): verify this internal detail/rationale. -->
+> **TODO(joao):** verify the internal detail/rationale in the paragraph below.
+
 `list_third_party_signals` has two modes, `by_signal` and `by_company`, because those are the two questions people ask: "who is hiring sales reps?" and "what's going on with acme.com?". One tool with a mode was clearer to the model than two tools with overlapping parameters.
 
 A few things that made the tools work well in production:
@@ -92,7 +86,8 @@ A few things that made the tools work well in production:
 - **Closed vocabularies have to be in the tool description.** Our signal taxonomy has hundreds of subtypes. Claude will invent plausible signal names that don't exist, so we either document the catalog or tell the model to fall back to the broader `signalCategory` and let the server fan out.
 
 ## Rate limiting
-<!-- TODO(joao): describe the implementation (where the limiter lives, keyed by user/org/token, storage). -->
+> **TODO(joao):** describe the implementation (where the limiter lives, keyed by user/org/token, storage).
+
 Agents are much more aggressive than humans. A single prompt like "check all of these 40 domains" turns into 40 tool calls in a few seconds, and an agent running in a loop can do that all day.
 
 The limits are 60 calls per minute on the free tier and 120 on paid plans. Going over returns `HTTP 429`, and it's safe to retry after about 60 seconds.
@@ -102,7 +97,8 @@ The part that matters for MCP is that the **model** reads the error, not a devel
 Rate limiting also connects to billing: calls are free, but new companies and contacts consume credits. That's a big topic on its own, so I'll cover it in a companion post about metering AI agents and charging credits per tool call.
 
 ## Expected vs. actual usage
-<!-- TODO(joao): fill in with real numbers from the first week(s): call share per tool, surprising prompts, client mix (Claude Desktop vs Claude Code vs Cursor). -->
+> **TODO(joao):** fill in with real numbers from the first week(s): call share per tool, surprising prompts, client mix (Claude Desktop vs Claude Code vs Cursor vs ChatGPT vs Codex).
+
 We expected customers to use the MCP the way they use our dashboard: open it in the morning, look at who visited yesterday, move on.
 
 What actually happened:
@@ -118,7 +114,8 @@ This one surprised me the most. We returned the same data for the same question,
 
 The AI client decides how to render the result, but you can steer it heavily:
 
-<!-- TODO(joao): confirm the exact techniques used and add a real snippet of a tool description / response. -->
+> **TODO(joao):** confirm the exact techniques used and add a real snippet of a tool description / response.
+
 - **Put presentation guidance in the tool description.** Tell the model which fields matter, which ones to show as columns, and the order. Models follow tool descriptions surprisingly closely.
 - **Return structured data with stable field names.** The same keys in the same order on every call give the model less room to improvise.
 - **Drop noise from the response.** Every field you return is a field the model might decide to show. If it's not useful to the user, don't send it.
