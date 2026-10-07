@@ -1,0 +1,8 @@
+# Orca (https://github.com/stablyai/orca) config for this repo.
+# The dev server isn't a hook: set the repo's Run command in Orca to
+#   bash scripts/orca/run.sh
+scripts:
+  setup: bash scripts/orca/setup.sh
+
+# The agent may build the site, so let setup fetch the theme and Hugo first.
+setupAgentStartupPolicy: wait-for-setup
