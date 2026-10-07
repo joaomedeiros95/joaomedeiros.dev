@@ -84,7 +84,7 @@ A few things that made the tools work well in production:
 ## Rate limiting
 Agents are much more aggressive than humans. A single prompt like "check all of these 40 domains" turns into 40 tool calls in a few seconds, and an agent running in a loop can do that all day.
 
-The limits are 60 calls per minute on the free tier and 120 on paid plans. Going over returns `HTTP 429`, and it's safe to retry after about 60 seconds.
+So we limit how many calls can be made per minute, with higher limits on paid plans. Going over returns `HTTP 429`, and the client can retry after a short wait.
 
 The part that matters for MCP is that the **model** reads the error, not a developer. A bare `429 Too Many Requests` often makes the agent give up or retry immediately. An error message that explains the limit and when to retry makes the agent wait or batch its work. Treat error messages as part of the prompt.
 
