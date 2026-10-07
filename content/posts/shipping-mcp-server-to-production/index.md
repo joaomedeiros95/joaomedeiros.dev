@@ -59,7 +59,7 @@ Pinning also has a nice side effect: users with several organizations can add on
 ### Lessons
 > **TODO(joao):** add the concrete bugs you hit (redirect URI mismatches, token refresh, clients caching a broken registration, etc.).
 
-- Test with every client you plan to support, not only the one you use. They don't behave the same way during discovery and token refresh.
+- Test with every client you plan to support, not only the one you use. They don't behave the same way during discovery and token refresh. Perplexity, for example, didn't log in correctly with our first version, and we had to adjust how the server handles unauthorized requests.
 - Log the whole OAuth handshake on the server side. The client will rarely tell the user what went wrong, so your logs are the only source of truth.
 - Keep tokens short-lived and make refresh work early. A broken refresh shows up as "the MCP stopped working" a day after onboarding.
 
