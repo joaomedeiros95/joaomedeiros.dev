@@ -11,7 +11,7 @@ showTags = true
 ## Introduction
 Most MCP tutorials focus on getting a server running and a first tool working. Very few cover what happens when real customers, with real data and real SSO policies, connect their agents to your server.
 
-At [Warmly](https://www.warmly.ai) I built our [MCP server](https://www.warmly.ai/launches/warmly-mcp-and-api-are-live). We went from zero to production in 10 days, and in the first week more than 50 customers connected it to Claude Desktop, Claude Code, Cursor and other MCP clients. Very few people have run MCP in production with paying customers yet, so I want to write down the parts that surprised me.
+At [Warmly](https://www.warmly.ai) I built our [MCP server](https://www.warmly.ai/launches/warmly-mcp-and-api-are-live). We went from zero to production in 10 days, and in the first week more than 50 customers connected it to Claude Desktop, Claude Code, Cursor, ChatGPT, Codex and other MCP clients. Very few people have run MCP in production with paying customers yet, so I want to write down the parts that surprised me.
 
 >TL;DR: Writing tools is the easy part. Authentication took most of the effort, tool design should follow the questions customers ask (not your database tables), rate limits need to be explained to the model and not only to humans, and if you don't tell the AI how to present your data, every response will look different.
 
