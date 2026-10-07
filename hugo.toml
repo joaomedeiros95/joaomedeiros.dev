@@ -22,9 +22,11 @@ hideHeader = false
 # Intro on main page, content is markdown
 homeIntroTitle = 'Hi!'
 homeIntroContent = """
-I am a Senior Software Engineer from Brazil, a specialist in Django and Python, with extensive experience in DevOps and databases. 
-Initially focused on backend development, I am successfully transitioning into a fullstack role, expanding my expertise to include 
-front-end technologies and delivering comprehensive solutions.
+I'm a senior backend and data infrastructure engineer based in Brazil, with 12 years building APIs and distributed systems in Python and TypeScript.
+I was a founding engineer on the data team at [Warmly](https://www.warmly.ai) (acquired by HubSpot in 2026), where I built the company's MCP server
+and ran the CDC pipelines, MongoDB, and GCP Dataflow jobs behind its sales intelligence data.
+
+I write about shipping products to production, AI tooling in the real world, and the lessons that don't make it into tutorials.
 """
 
 # Collection to display on home

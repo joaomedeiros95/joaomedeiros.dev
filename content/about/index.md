@@ -6,20 +6,19 @@ noComment = true
 css = "about"
 +++
 ![João Medeiros](joao.jpg)
-I’m João Medeiros, a Senior Software Engineer with over a decade of experience in Software Development. I’m a Django specialist and a Formula 1 fan. Currently I work at [Buser Brasil](https://linkedin.com/company/buserbrasil/) as a Fullstack Senior Engineer.
+I have degrees in Information Technology and Software Engineering, but most of what I know I learned by breaking things in production and fixing them. Twelve years in, I still like it that way.
 
-I have experience making decisions concerning both backend and frontend infrastructure. I have also been active in cloud software development for most of my career.
+## What I work on
 
-Versatility and curiosity are my key strengths. I love picking up new languages, frameworks, and libraries.
+Data infrastructure and backend systems: change data capture with Debezium and Kafka, streaming pipelines on Apache Beam and GCP Dataflow, MongoDB and Elasticsearch at the scale of hundreds of millions of records. Lately I've been working on AI tooling too, mainly exposing real production data to agents through MCP without letting them set anything on fire.
 
-Technologies that I love and use daily or used extensively:
+## Where I've been
 
-- Python
-- Django
-- PostgreSQL
-- Google Cloud and AWS
-- Docker
-- Kubernetes
-- Linux
-- Distributed systems (Celery, Kafka, RabbitMQ)
-- Redis
+- **Warmly**: founding engineer on the data team. I built the MCP server, migrated the data platform from Azure to GCP, and owned the pipelines behind contact enrichment and visitor identification.
+- **io.insure**: founding engineer at an insurtech. This is where I learned payments, webhooks, and why idempotency matters.
+- **BuildGroup**: founding engineer on an investment platform.
+- **Buser**: backend engineering on a high-traffic Django platform.
+
+## Stack I reach for
+
+Python, Django, FastAPI, TypeScript/Node.js · PostgreSQL, MongoDB, Elasticsearch · GCP, Kubernetes, Docker, Kafka, Beam.
